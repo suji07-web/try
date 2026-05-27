@@ -1,0 +1,20 @@
+
+<div id="login-page">
+<h2>Login trial </h2>
+<div id="login"></div>
+<form
+    id="login-form"
+    [formGroup]="loginForm"
+    (ngSubmit)="login()"
+  >
+  {{loginForm.get('username')?.errors | json}}
+    <label for="username">Username</label>
+    <input  type="text" formControlName="username" [class.invalid]="loginForm.controls.username.invalid &&loginForm.controls.username.touched"required />
+    <label for="password">Password</label>
+    <input type="password" formControlName="password" [class.invalid]="loginForm.controls.password.invalid &&loginForm.controls.password.touched"required />
+    <button type="submit" >Log In</button>
+    <p class="error" *ngIf="loginForm.get('username')?.hasError('pattern') && loginForm.get('username')?.touched">
+    Invalid username
+  </p>
+  </form>
+</div>

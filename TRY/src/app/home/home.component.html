@@ -1,0 +1,66 @@
+<div id="home-page">
+
+  <h2>User List</h2>
+
+  <button (click)="addUser()">
+    Add User
+  </button>
+
+  <form [formGroup]="userForm">
+
+    <div formArrayName="users">
+
+      <div class="user-card" *ngFor=" let user of users.controls; let i = index" [formGroupName]="i">
+
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Enter Name"
+          [readonly]="editIndex !== i"
+        >
+
+        <input
+          type="number"
+          formControlName="age"
+          placeholder="Enter Age"
+          [readonly]="editIndex !== i"
+        >
+
+        <!-- Edit Button -->
+        <button
+          type="button"
+          *ngIf="editIndex !== i"
+          (click)="editUser(i)"
+        >
+          Edit
+        </button>
+
+        <!-- Save Button -->
+        <button
+          type="button"
+          *ngIf="editIndex === i"
+          (click)="saveUser()"
+        >
+          Save
+        </button>
+
+        <!-- Delete Button -->
+        <button
+          type="button"
+          (click)="deleteUser(i)"
+        >
+          Delete
+        </button>
+        
+        <button
+          type="button"
+          (click)="logout()">
+          logout
+        </button>
+      </div>
+
+    </div>
+
+  </form>
+
+</div>
