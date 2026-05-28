@@ -1,63 +1,143 @@
-<div id="home-page">
+<mat-toolbar color="primary">
 
-  <h2>User List</h2>
+  <span>My Todo List</span>
 
-  <button (click)="addUser()">
-    Add User
+  <span class="spacer"></span>
+
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="logout()"
+  >
+
+    <mat-icon>logout</mat-icon>
+
+    Logout
+
   </button>
 
+</mat-toolbar>
+
+
+<div id="home-page">
+
+  <button mat-raised-button color="primary" class="add-btn" (click)="addUser()">
+  <mat-icon>add</mat-icon>Add Task</button>
+
+
   <form [formGroup]="userForm">
-
     <div formArrayName="users">
+      <mat-card class="user-card" *ngFor="let user of users.controls; let i = index" [formGroupName]="i">
 
-      <div class="user-card" *ngFor=" let user of users.controls; let i = index" [formGroupName]="i">
+        <!-- Task Name -->
 
-        <input
-          type="text"
-          formControlName="name"
-          placeholder="Enter Name"
-          [readonly]="editIndex !== i"
+        <mat-form-field
+          appearance="outline"
+          class="full-width"
         >
 
-        <input
-          type="number"
-          formControlName="age"
-          placeholder="Enter Age"
-          [readonly]="editIndex !== i"
-        >
+          <mat-label>Task Name</mat-label>
 
-        <!-- Edit Button -->
-        <button
-          type="button"
-          *ngIf="editIndex !== i"
-          (click)="editUser(i)"
-        >
-          Edit
-        </button>
+          <input
+            matInput
+            formControlName="name"
+            [readonly]="editIndex !== i"
+          >
 
-        <!-- Save Button -->
-        <button
-          type="button"
-          *ngIf="editIndex === i"
-          (click)="saveUser()"
-        >
-          Save
-        </button>
+        </mat-form-field>
 
-        <!-- Delete Button -->
-        <button
-          type="button"
-          (click)="deleteUser(i)"
-        >
-          Delete
-        </button>
-        
-        <button
-          type="button"
-          (click)="logout()">
-          logout
-        </button>
-      </div>
+
+        <!-- Priority Dropdown -->
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>Priority</mat-label>
+
+          <mat-select
+            formControlName="priority"
+            [disabled]="editIndex !== i"
+          >
+
+            <mat-option value="High">
+              High
+            </mat-option>
+
+            <mat-option value="Medium">
+              Medium
+            </mat-option>
+
+            <mat-option value="Low">
+              Low
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+
+        <!-- Age -->
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>Days</mat-label>
+
+          <input
+            matInput
+            type="number"
+            formControlName="age"
+            [readonly]="editIndex !== i"
+          >
+
+        </mat-form-field>
+
+
+        <!-- Buttons -->
+
+        <div class="actions">
+
+          <!-- Edit -->
+
+          <button
+            mat-mini-fab
+            color="accent"
+            *ngIf="editIndex !== i"
+            (click)="editUser(i)"
+          >
+
+            <mat-icon>edit</mat-icon>
+
+          </button>
+
+
+          <!-- Save -->
+
+          <button
+            mat-mini-fab
+            color="primary"
+            *ngIf="editIndex === i"
+            (click)="saveUser()"
+          >
+
+            <mat-icon>save</mat-icon>
+
+          </button>
+
+
+          <!-- Delete -->
+
+          <button
+            mat-mini-fab
+            color="warn"
+            (click)="deleteUser(i)"
+          >
+
+            <mat-icon>delete</mat-icon>
+
+          </button>
+
+        </div>
+
+      </mat-card>
 
     </div>
 

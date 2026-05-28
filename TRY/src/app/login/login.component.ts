@@ -46,12 +46,11 @@ export class LoginComponent {
       username === 'admin123' &&
       password === 'Admin@123'
     ) {
+    localStorage.setItem('loggedIn','true');
+    this.router.navigate(['/home']);
+     } 
 
-      this.router.navigate(['/home']);
-
-    } else {
-
-
+     else {
       // mark fields red
       if (username !== 'admin1208!') {
         this.loginForm.controls.username.setErrors({

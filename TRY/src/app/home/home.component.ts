@@ -35,18 +35,19 @@ export class HomeComponent {
     return this.userForm.get('users') as FormArray;
 
   }
-
-  createUser() {
+  createUser(): FormGroup {
 
     return new FormGroup({
 
       name: new FormControl('', Validators.required),
 
-      age: new FormControl('', Validators.required)
+      age: new FormControl('', Validators.required),
+
+      priority: new FormControl('Medium')
 
     });
 
-  }
+}
 
 
   addUser() {
@@ -84,7 +85,12 @@ export class HomeComponent {
 
   logout(): void {
 
+  localStorage.removeItem(
+    'loggedIn'
+  );
+
   this.router.navigate(['/']);
+
 
 }
 
