@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { HttpClient } from '@angular/common/http';
 import {
   FormGroup,
   FormControl,
@@ -15,6 +15,7 @@ import {
 
 
 export class LoginComponent {
+  errorMessage: string = '';
 
   loginForm = new FormGroup({
 
@@ -32,39 +33,42 @@ export class LoginComponent {
 
   });
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+              private http: HttpClient) {}
 
-  login() {
+login() {
 
-    const username =
-      this.loginForm.value.username?.trim();
-
-    const password =
-      this.loginForm.value.password?.trim();
-
-    if (
-      username === 'admin123' &&
-      password === 'Admin@123'
-    ) {
-    localStorage.setItem('loggedIn','true');
-    this.router.navigate(['/home']);
-     } 
-
-     else {
-      // mark fields red
-      if (username !== 'admin1208!') {
-        this.loginForm.controls.username.setErrors({
-          invalid: true
-        });
-      }
-
-      if (password !== '1234') {
-        this.loginForm.controls.password.setErrors({
-          invalid: true
-        });
-      }
-    }
+  if (this.loginForm.invalid) {
+    this.loginForm.markAllAsTouched();
+    return;
   }
+
+  const payload = {
+    username:
+      this.loginForm.value.username,
+    password:
+      this.loginForm.value.password
+  };
+  this.http.post<any>(
+    'https://192.168.0.29:8766/auth/signin?rememberMe=false&otpRequired=false',
+    payload
+  )
+
+  .subscribe({
+    next: (response) => {
+      console.log(response);
+      const token =response.accessToken;
+      sessionStorage.setItem('token',token);
+      this.router.navigate(['/home']);
+    },
+    error: (error) => {
+      console.log(error);
+      this.errorMessage =
+        'Invalid Username or Password';
+    }
+  });
+
+}
   }
 
 

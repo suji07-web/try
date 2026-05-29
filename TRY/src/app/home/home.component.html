@@ -1,6 +1,15 @@
+
 <mat-toolbar color="primary">
 
   <span>My Todo List</span>
+  <span class="welcome-text"
+      *ngIf="userDetails">
+
+  Welcome,
+  {{ userDetails.username }}, 
+  {{ userDetails.email }}
+
+</span>
 
   <span class="spacer"></span>
 
@@ -20,11 +29,11 @@
 
 
 <div id="home-page">
-
+  <div class="top-buttons">
+  <button mat-raised-button color="accent" (click)="goToBranchPage()"> Fetch Branch Details</button>
   <button mat-raised-button color="primary" class="add-btn" (click)="addUser()">
   <mat-icon>add</mat-icon>Add Task</button>
-
-
+  </div>
   <form [formGroup]="userForm">
     <div formArrayName="users">
       <mat-card class="user-card" *ngFor="let user of users.controls; let i = index" [formGroupName]="i">

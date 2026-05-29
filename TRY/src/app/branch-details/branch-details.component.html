@@ -1,0 +1,38 @@
+<div class="branch-page">
+
+  <h2>
+    Branch Details
+  </h2>
+    <button
+        mat-raised-button
+        color="warn"
+        (click)="logout()"
+      >
+
+        <mat-icon>logout</mat-icon>
+
+        Logout
+
+      </button>
+ <div
+  class="details"
+  *ngIf="branchDetails"
+>
+
+  <p>
+    Status:
+    {{ branchDetails.statusCode }}
+  </p>
+
+  <p>
+    Message:
+    {{ branchDetails.message }}
+  </p>
+
+  <pre>
+{{ branchDetails.data | json }}
+  </pre>
+
+</div>
+  
+</div>

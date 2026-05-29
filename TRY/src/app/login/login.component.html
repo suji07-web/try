@@ -7,7 +7,7 @@
     [formGroup]="loginForm"
     (ngSubmit)="login()"
   >
-  {{loginForm.get('username')?.errors | json}}
+
     <label for="username">Username</label>
     <input  type="text" formControlName="username" [class.invalid]="loginForm.controls.username.invalid &&loginForm.controls.username.touched"required />
     <label for="password">Password</label>
