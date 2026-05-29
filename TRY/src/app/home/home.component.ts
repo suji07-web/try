@@ -21,6 +21,7 @@ implements OnInit {
    ngOnInit(): void {
   this.fetchUserDetails();
 }
+  branchDetails: any;
   userDetails: any;
   editIndex: number | null = null;
   userForm = new FormGroup({
@@ -70,27 +71,16 @@ implements OnInit {
     this.router.navigate(['/branch-details']);
   }
 fetchUserDetails() {
-  const token =sessionStorage.getItem('token');
-  console.log('TOKEN:',token);
-  this.http.get<any>(
-    'https://192.168.0.29:8766/ic-user/fetchUser?isProfile=true',
-    { headers: {
-        Authorization:
-          `Bearer ${token}`,
-
-      }
-    }
-  )
+       this.http.get<any>(
+    'https://192.168.0.29:8766/ic-user/fetchUser?isProfile=true',)
+    
   .subscribe({
     next: (response) => {
-      console.log('FULL RESPONSE:',response);
+      console.log(response);
       this.userDetails =response;
     },
     error: (error) => {console.log('ERROR:',error);
-        if (error.status === 401) {
-          sessionStorage.removeItem('token');
-          this.router.navigate(['/']);
-        }
+
        }
 
   });
