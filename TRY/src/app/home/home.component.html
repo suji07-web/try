@@ -1,29 +1,34 @@
 
 <mat-toolbar color="primary">
 
-  <span>My Todo List</span>
-  <span class="welcome-text"
-      *ngIf="userDetails">
-
-  Welcome,
-  {{ userDetails.username }}, 
-  {{ userDetails.email }}
-
-</span>
+  <span class="app-title">
+    My Todo List
+  </span>
 
   <span class="spacer"></span>
 
-  <button
-    mat-raised-button
-    color="warn"
-    (click)="logout()"
-  >
+  <div class="profile-section" *ngIf="userDetails">
+    <span class="username">
+      {{ userDetails.username }}
+    </span>
 
-    <mat-icon>logout</mat-icon>
+    <img src="https://api.imgbb.com/" alt="Profile" class="profile-image" [matMenuTriggerFor]="profileMenu">
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item (click)="goToSettings()">
+        <mat-icon>settings</mat-icon>
+        Settings
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+      <button mat-menu-item (click)="home()">
+        <mat-icon>Home</mat-icon>
+        Home 
+      </button>
 
-    Logout
-
-  </button>
+    </mat-menu>
+  </div>
 
 </mat-toolbar>
 

@@ -1,4 +1,140 @@
-/* You can add global styles to this file, and also import other style files */
+/* GLOBAL */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: Roboto, sans-serif;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  --app-background: #f5f5f5;
+  --card-background: white;
+  --text-color: black;
+  --header-text-color: white;
+}
+
+body {
+  background: var(--app-background);
+  color: var(--text-color);
+}
+
+body.dark-theme {
+  --app-background: #121212;
+  --card-background: #2a2a2a;
+  --text-color: white;
+}
+
+mat-toolbar {
+  color: var(--header-text-color);
+}
+
+.welcome-text {
+  color: var(--header-text-color);
+}
+
+.username {
+  color: var(--text-color);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.settings-container {
+  width: 900px;
+  margin: 40px auto;
+}
+
+.profile-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  border-radius: 20px;
+  background: var(--card-background);
+  color: var(--text-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+.profile-image {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.theme-card {
+  padding: 40px;
+  border-radius: 25px;
+  background: var(--card-background);
+  color: var(--text-color);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.theme-toggle {
+  margin-bottom: 40px;
+}
+
+.custom-colors h3,
+label,
+span {
+  color: var(--text-color);
+}
+
+.color-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+input[type="color"] {
+  width: 60px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+.user-card {
+  background: var(--card-background);
+  color: var(--text-color);
+}
+
+mat-card {
+  background: var(--card-background) !important;
+  color: var(--text-color) !important;
+}
+
+body.dark-theme .mat-mdc-text-field-wrapper {
+  background-color: #333 !important;
+}
+
+
+body.dark-theme input {
+  color: white !important;
+}
+
+body.dark-theme .mat-mdc-floating-label {
+  color: #ccc !important;
+}
+body.dark-theme button {
+  color: white !important;
+}
+
+body.dark-theme .mat-mdc-menu-panel {
+  background: #2a2a2a !important;
+}
+
+body.dark-theme .mat-mdc-menu-item {
+  color: white !important;
+}
+
+
+body.dark-theme .mat-mdc-menu-item:hover {
+  background: #3a3a3a !important;
+}
+
+body.dark-theme .mat-icon {
+  color: white !important;
+}

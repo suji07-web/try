@@ -18,6 +18,10 @@ import {
 
 export class HomeComponent 
 implements OnInit {
+
+  profileImage =
+    'https://i.ibb.co/4pDNDk1/avatar.png';
+
    ngOnInit(): void {
   this.fetchUserDetails();
 }
@@ -86,4 +90,12 @@ fetchUserDetails() {
   });
 
 }
+   goToSettings(): void {
+  this.router.navigate(
+    ['/settings']
+  );
+}
+ home():void{
+  this.router.navigate(['/home']);
+ }
 }

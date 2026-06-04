@@ -1,0 +1,45 @@
+<div class="settings-container">
+  <div class="profile-box">
+    <span class="username">
+        {{ userDetails.username }}
+    </span>
+
+    <img src="https://api.imgbb.com/" alt="Profile" class="profile-image" [matMenuTriggerFor]="profileMenu">
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item (click)="goToSettings()">
+        <mat-icon>settings</mat-icon>
+        Settings
+      </button>
+      <button mat-menu-item (click)="home()">
+        <mat-icon>home</mat-icon>
+        Home 
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+
+
+    </mat-menu>
+  </div>
+  <div class="theme-card">
+    <div class="theme-toggle">
+      <mat-slide-toggle (change)="toggleTheme($event)">Dark Theme</mat-slide-toggle>
+    </div>
+    <div class="custom-colors">
+      <h3>
+        Use Custom Colors
+      </h3>
+      <div class="color-row">
+        <label>Theme Header Color:</label>
+        <input type="color" (input)="changeToolbarColor($event)">
+      </div>
+      <div class="color-row">
+        <label>
+          Background Color:
+        </label>
+        <input type="color" (input)="changeBackgroundColor($event)">
+      </div>
+    </div>
+  </div>
+</div>
