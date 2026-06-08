@@ -1,0 +1,165 @@
+.page {
+
+  min-height: 100vh;
+
+  background: #f4f5fb;
+
+}
+
+.topbar {
+
+  height: 60px;
+
+  background: #0b4f97;
+
+  color: white;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 0 25px;
+
+}
+
+.topbar button {
+
+  border: none;
+
+  background: white;
+
+  color: #0b4f97;
+
+  border-radius: 25px;
+
+  padding: 8px 20px;
+
+}
+
+.content {
+
+  padding: 35px;
+
+}
+
+.tag {
+
+  display: inline-block;
+
+  background: white;
+
+  padding: 8px 15px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+}
+
+h1 {
+
+  margin-top: 20px;
+
+  color: #16254f;
+
+  line-height: 1.4;
+
+}
+
+.calculator-card {
+
+  margin-top: 30px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 30px;
+
+  display: flex;
+
+  gap: 40px;
+
+}
+
+.left-section {
+
+  flex: 2;
+
+}
+
+.right-section {
+
+  flex: 1;
+
+  background: #edf9f0;
+
+  border-radius: 15px;
+
+  padding: 25px;
+
+}
+
+.left-section input {
+
+  width: 100%;
+
+  margin-bottom: 15px;
+
+}
+
+.left-section button {
+
+  margin-top: 20px;
+
+  background: #0b4f97;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px 20px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+}
+
+.emi-amount {
+
+  font-size: 40px;
+
+  font-weight: bold;
+
+  color: #2e7d32;
+
+  text-align: center;
+
+  margin: 20px 0;
+
+}
+
+.row {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 15px;
+
+  border-bottom: 1px solid #ddd;
+
+  padding-bottom: 10px;
+
+}
+
+.interest {
+
+  margin: 20px 0;
+
+  color: #0b4f97;
+
+}

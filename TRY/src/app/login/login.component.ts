@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 import {
   FormGroup,
   FormControl,
@@ -15,7 +16,9 @@ import {
 
 
 export class LoginComponent {
+  step = 1;
   errorMessage: string = '';
+  showOtp = false;
 
   loginForm = new FormGroup({
 
@@ -30,8 +33,25 @@ export class LoginComponent {
         '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'
       )
     ])
-
+  
   });
+  mobileForm = new FormGroup({
+
+  mobile: new FormControl('', [
+    Validators.required,
+    Validators.pattern('^[0-9]{4}$')
+  ])
+
+});
+
+otpForm = new FormGroup({
+
+  otp: new FormControl('', [
+    Validators.required,
+    Validators.pattern('^[0-9]{6}$')
+  ])
+
+});
 
   constructor(private router: Router,
               private http: HttpClient) {}
@@ -59,8 +79,7 @@ login() {
       console.log(response);
       const token =response.accessToken;
       sessionStorage.setItem('token',token);
-      this.router.navigate(['/home']);
-    },
+      this.step = 2;    },
     error: (error) => {
       console.log(error);
       this.errorMessage =
@@ -69,6 +88,95 @@ login() {
   });
 
 }
+  generateOtp() {
+
+  if (this.mobileForm.invalid) {
+    return;
   }
+
+  const payload = {
+
+    mobile:
+      this.mobileForm.value.mobile
+
+  };
+
+  this.http.post(
+
+    `${environment.apiBaseUrl}${environment.auth.generateOtp}`,
+
+    payload
+
+  ).subscribe({
+
+    next: () => {
+
+      this.errorMessage = '';
+
+      this.step = 3;
+
+    },
+
+    error: (error) => {
+
+      if (error.status === 401) {
+
+        this.errorMessage =
+          'Unable to generate OTP';
+
+      }
+
+    }
+
+  });
+
+}
+verifyOtp() {
+
+  if (this.otpForm.invalid) {
+    return;
+  }
+
+  const payload = {
+
+    mobile:
+      this.mobileForm.value.mobile,
+
+    otp:
+      this.otpForm.value.otp
+
+  };
+
+  this.http.post(
+
+    `${environment.apiBaseUrl}${environment.auth.verifyOtp}`,
+
+    payload
+
+  ).subscribe({
+
+    next: (response) => {
+      console.log(response);
+      this.errorMessage = '';
+
+      this.router.navigate(['/emi-calculator']);
+
+    },
+
+    error: (error) => {
+
+      if (error.status === 401) {
+
+        this.errorMessage =
+          'Invalid OTP';
+
+      }
+
+    }
+
+  });
+
+
+}}
 
 

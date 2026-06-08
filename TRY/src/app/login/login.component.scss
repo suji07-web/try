@@ -12,6 +12,27 @@
       margin-bottom: 30px;
       font-weight: 700;
       }
+      .otp-section {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+
+}
+
+.otp-field {
+
+  width: 100%;
+
+}
+
+.verify-btn {
+
+  width: 100%;
+
+}
 
       label {
       display: block;
@@ -59,6 +80,7 @@
        font-size: 14px;
       
       }
+      
 
 }
 

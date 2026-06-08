@@ -16,6 +16,12 @@ export const environment = {
       '/auth/verifyOtp'
 
   },
+  loan: {
+
+  calculateEmi:
+    '/loan/calculateEmi'
+
+}
 
 
 };

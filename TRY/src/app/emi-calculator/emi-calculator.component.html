@@ -1,0 +1,116 @@
+<div class="page">
+
+  <div class="topbar">
+
+    <span>
+      Bank
+    </span>
+
+    <button>
+      Tracking
+    </button>
+
+  </div>
+
+  <div class="content">
+
+    <div class="tag">
+      Loan EMI Calculator
+    </div>
+
+    <h1>
+      Estimated amount displayed.
+      Final loan terms will be
+      customised upon approval.
+    </h1>
+
+    <div class="calculator-card">
+
+<div class="left-section">
+
+        <h2>
+          Business Loan EMI Calculator
+        </h2>
+
+        <form
+          [formGroup]="emiForm"
+        >
+ <label> Amount
+  </label>
+<input
+    type="number"
+    formControlName="principleAmount"  >
+
+<input
+  type="range"
+  min="1000"
+  max="500000"
+  [value]="emiForm.get('principleAmount')?.value || 0"
+  (input)="emiForm.get('principleAmount')?.setValue($any($event.target).value)">
+<label> Tenure (Months) </label>
+<input type="number" formControlName="numberOfMonths">
+<input type="range" min="1" max="120"
+    [value]="emiForm.get('numberOfMonths')?.value || 0"
+    (input)="emiForm.get('numberOfMonths')?.setValue($any($event.target).value)">
+
+<p class="interest">Interest Rate :<strong>10.55%</strong></p>
+
+<label>First Repayment Date</label>
+<input type="date" formControlName="firstRepaymentDate">
+<button  type="button"   (click)="calculateEmi()"  >
+   Calculate EMI
+</button>
+</form>
+</div>
+
+<div class="right-section"    *ngIf="emiResult">
+
+<h4>Your Monthly EMI Payment</h4>
+
+ <div class="emi-amount"> ₹ {{ emiResult.monthlyPayment }} </div>
+<div class="row">
+<span>Principal Amount  </span>
+<strong>
+        ₹ {{ emiResult.principal }}
+</strong>
+
+ </div>
+
+        <div class="row">
+
+          <span>
+            Interest Amount
+          </span>
+
+          <strong>
+
+            ₹ {{ emiResult.totalInterest }}
+
+          </strong>
+
+        </div>
+
+        <div class="row">
+
+          <span>
+            Total Amount
+          </span>
+
+          <strong>
+
+            ₹ {{ emiResult.totalRepaymentAmount }}
+
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+<button mat-raised-button color="primary" class="apply-btn" (click)="applyNow()">
+Apply Now
+</button>
+
+</div>
