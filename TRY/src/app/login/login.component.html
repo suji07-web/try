@@ -1,45 +1,129 @@
-<div id="login-page">
-  <h2>Account Verification</h2>
-  
-    <form *ngIf="step === 1" [formGroup]="loginForm" (ngSubmit)="login()">
-    <label> Username</label>
-    <input type="text" formControlName="username">
-    <label>Password</label>
+<div class="login-wrapper">
 
-    <input type="password" formControlName="password">
+  <div class="banking-banner">
 
-    <button type="submit">Login</button>
-</form>
-  <div *ngIf="step === 2">
-    <form [formGroup]="mobileForm">
-      <label>account Number</label>
-      <input type="text" formControlName="mobile">
+    <div class="banner-content">
 
-      <button type="button" (click)="generateOtp()">Generate OTP </button>
-    </form>
+      <h1>Smart Digital Banking</h1>
+
+      <p>
+        Secure access to your banking services with
+        multi-factor authentication.
+      </p>
+
+      <div class="features">
+        <span>🔒 Secure Login</span>
+        <span>⚡ Fast Banking</span>
+        <span>🛡 Protected Access</span>
+      </div>
+
+    </div>
 
   </div>
-  <div *ngIf="step === 3">
-  <form [formGroup]="otpForm">
 
-    <div class="otp-section">
+  <div class="login-card">
 
-      <mat-form-field appearance="outline" class="otp-field">
+    <div class="logo-section">
 
-        <mat-label>OTP</mat-label>
+      <div class="bank-logo">🏦</div>
+
+      <h2>Account Verification</h2>
+
+      <p>Login to continue</p>
+
+    </div>
+<div class="progress-steps">
+
+  <div class="step" [class.active]="step >= 1">
+    <span>1</span>
+    <p>Login</p>
+  </div>
+
+  <div class="step" [class.active]="step >= 2">
+    <span>2</span>
+    <p>Verify</p>
+  </div>
+
+  <div class="step" [class.active]="step >= 3">
+    <span>3</span>
+    <p>OTP</p>
+  </div>
+
+</div>
+    <!-- STEP 1 -->
+
+    <form
+      *ngIf="step === 1"
+      [formGroup]="loginForm"
+      (ngSubmit)="login()">
+
+      <label>Username</label>
+
+      <input
+        type="text"
+        formControlName="username"
+        placeholder="Enter Username">
+
+      <label>Password</label>
+
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Enter Password">
+
+      <button type="submit">
+        Login Securely
+      </button>
+
+    </form>
+
+    <!-- STEP 2 -->
+
+    <form
+      *ngIf="step === 2"
+      [formGroup]="mobileForm">
+
+      <label>Account Number</label>
+
+      <input
+        type="text"
+        formControlName="mobile"
+        placeholder="Last 4 digits">
+
+      <button
+        type="button"
+        (click)="generateOtp()">
+
+        Generate OTP
+
+      </button>
+
+    </form>
+
+    <!-- STEP 3 -->
+
+    <form
+      *ngIf="step === 3"
+      [formGroup]="otpForm">
+
+      <label>OTP Verification</label>
+
+      <mat-form-field
+        appearance="outline"
+        class="otp-field">
+
+        <mat-label>Enter OTP</mat-label>
 
         <input
           matInput
           [type]="showOtp ? 'text' : 'password'"
-          formControlName="otp"
-        >
+          formControlName="otp">
 
         <button
           mat-icon-button
           matSuffix
           type="button"
-          (click)="showOtp = !showOtp"
-        >
+          (click)="showOtp = !showOtp">
 
           <mat-icon>
             {{ showOtp ? 'visibility_off' : 'visibility' }}
@@ -51,23 +135,26 @@
 
       <button
         type="button"
-        class="verify-btn"
-        (click)="verifyOtp()"
-      >
+        (click)="verifyOtp()">
 
         Verify OTP
 
       </button>
 
+    </form>
+
+    <p
+      class="error"
+      *ngIf="errorMessage">
+
+      {{ errorMessage }}
+
+    </p>
+
+    <div class="security-footer">
+      🔒 Protected by Multi-Factor Authentication
     </div>
 
-  </form>
-
-</div>
-
-
-  <p class="error" *ngIf="errorMessage">
-    {{ errorMessage }}
-  </p>
+  </div>
 
 </div>

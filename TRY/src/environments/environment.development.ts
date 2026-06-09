@@ -18,9 +18,21 @@ export const environment = {
     emiCalculation: '/loan-repayment/emi-calculation',
     loanDetail:'/loan-detail',
   },
-  
+
   genericValue: '/generic-value' , 
-  country: '/country' 
+  country: '/country' ,
+  
+  document: {
+    checkList: '/process_stage/fetchCheckListForScreen',  
+    upload: '/dms/upload',                               
+    linkToOrigination: '/origination-doc',              
+    ocrSave: '/pyDocument/savePyDoc', 
+    fetchDocument: '/pyDocument/fetchDocument',                   
+  },
+ 
+  stageId: 653,
+  screenCode: 456,
+ 
 
 
 };

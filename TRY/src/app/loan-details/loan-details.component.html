@@ -2,586 +2,435 @@
   <h2>Loan Origination</h2>
   <p>Complete the loan application process</p>
 </div>
+
+<div class="loan-summary-card">
+  <div class="summary-header">
+    <span>Loan Overview</span>
+    <mat-icon>account_balance</mat-icon>
+  </div>
+
+  <div class="summary-values">
+    <div class="metric">
+      <label>Loan Amount</label>
+      <h2>{{emiData?.principal}}</h2>
+    </div>
+
+    <div class="metric">
+      <label>Monthly EMI</label>
+      <h2>{{emiData?.monthlyPayment}}</h2>
+    </div>
+
+    <div class="metric">
+      <label>Total Repayment</label>
+      <h2>{{emiData?.totalRepaymentAmount}}</h2>
+    </div>
+  </div>
+</div>
+
 <mat-accordion multi="true">
 
-  <mat-expansion-panel [expanded]="true"  [hideToggle]="false">
-      <mat-expansion-panel-header >
-<mat-panel-title class="panel-title">
+  <mat-expansion-panel [expanded]="true" [hideToggle]="false">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="panel-title">
+        <span>Loan Details</span>
+        <mat-icon *ngIf="loanCompleted" class="success-icon">check_circle</mat-icon>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-  <span>
-    Loan Details
-  </span>
-
-  <mat-icon
-    *ngIf="loanCompleted"
-    class="success-icon">
-
-    check_circle
-
-  </mat-icon>
-
-</mat-panel-title>
-      </mat-expansion-panel-header>
     <form [formGroup]="loanForm">
-      <div class="section-title">
-        Loan Information
-      </div>
+      <div class="section-title">Loan Information</div>
 
       <div class="loan-info-grid">
-        <div>
-          <label>Loan Amount Requested</label>
-          <h3>{{emiData?.principal}}</h3>
-        </div>
-
-        <div>
-          <label>Interest Payable</label>
-          <h3>{{emiData?.totalInterest}}</h3>
-        </div>
-
-        <div>
-          <label>Tenure</label>
-          <h3>{{emiData?.numberOfMonths}} Months</h3>
-        </div>
-
-        <div>
-          <label>Total Principal Amount</label>
-          <h3>{{emiData?.principal}}</h3>
-        </div>
-
-        <div>
-          <label>EMI Amount</label>
-          <h3>{{emiData?.monthlyPayment}}</h3>
-        </div>
-
-        <div>
-          <label>Total Payable Amount</label>
-          <h3>{{emiData?.totalRepaymentAmount}}</h3>
-        </div>
-
+        <div><label>Loan Amount Requested</label><h3>{{emiData?.principal}}</h3></div>
+        <div><label>Interest Payable</label><h3>{{emiData?.totalInterest}}</h3></div>
+        <div><label>Tenure</label><h3>{{emiData?.numberOfMonths}} Months</h3></div>
+        <div><label>Total Principal Amount</label><h3>{{emiData?.principal}}</h3></div>
+        <div><label>EMI Amount</label><h3>{{emiData?.monthlyPayment}}</h3></div>
+        <div><label>Total Payable Amount</label><h3>{{emiData?.totalRepaymentAmount}}</h3></div>
       </div>
 
-      <div class="section-title">
-        Loan Purpose
-      </div>
-
+      <div class="section-title">Loan Purpose</div>
       <mat-form-field appearance="outline" class="full-width">
-
-        <mat-label>
-          Purpose Of Loan
-        </mat-label>
-
+        <mat-label>Purpose Of Loan</mat-label>
         <mat-select formControlName="purposeOfLoan">
-
-          <mat-option
-            *ngFor="let item of purposeOfLoanList"
-            [value]="item.id">
-
-            {{item.values}}
-
-          </mat-option>
-
+          <mat-option *ngFor="let item of purposeOfLoanList" [value]="item.id">{{item.values}}</mat-option>
         </mat-select>
-
       </mat-form-field>
 
-      <div class="section-title">
-        Credit Facility Details
-      </div>
-
+      <div class="section-title">Credit Facility Details</div>
       <mat-form-field appearance="outline" class="full-width">
-
-        <mat-label>
-          Repayment Frequency
-        </mat-label>
-
+        <mat-label>Repayment Frequency</mat-label>
         <mat-select formControlName="repaymentFrequency">
-
-          <mat-option
-            *ngFor="let item of repaymentFrequencyList"
-            [value]="item.id">
-
-            {{item.values}}
-
-          </mat-option>
-
+          <mat-option *ngFor="let item of repaymentFrequencyList" [value]="item.id">{{item.values}}</mat-option>
         </mat-select>
-
       </mat-form-field>
 
       <div class="radio-section">
-
-        <label>
-          Do you have collateral to offer?
-        </label>
-
+        <label>Do you have collateral to offer?</label>
         <mat-radio-group formControlName="collateral">
-
-          <mat-radio-button value="YES">
-            Yes
-          </mat-radio-button>
-
-          <mat-radio-button value="NO">
-            No
-          </mat-radio-button>
-
+          <mat-radio-button value="YES">Yes</mat-radio-button>
+          <mat-radio-button value="NO">No</mat-radio-button>
         </mat-radio-group>
-
       </div>
 
       <div class="radio-section">
-
-        <label>
-          Do you have current credit facility with us or any other financial institution?
-        </label>
-
+        <label>Do you have current credit facility with us or any other financial institution?</label>
         <mat-radio-group formControlName="creditFacility">
-
-          <mat-radio-button value="YES">
-            Yes
-          </mat-radio-button>
-
-          <mat-radio-button value="NO">
-            No
-          </mat-radio-button>
-
+          <mat-radio-button value="YES">Yes</mat-radio-button>
+          <mat-radio-button value="NO">No</mat-radio-button>
         </mat-radio-group>
-
       </div>
 
       <div class="button-section">
-
-        <button
-          mat-stroked-button
-          color="primary">
-          Back
-        </button>
-
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="goToBusinessDetails()">
-          Next
-        </button>
-
+        <button mat-stroked-button color="primary">Back</button>
+        <button mat-raised-button color="primary" (click)="goToBusinessDetails()">Next</button>
       </div>
-
     </form>
-
   </mat-expansion-panel>
+
+
+
 
   <mat-expansion-panel
     [disabled]="!loanCompleted"
-    [expanded]="loanCompleted"
-    [hideToggle]="!loanCompleted">
+    [expanded]="loanCompleted && !documentCompleted"
+    [hideToggle]="false">
 
     <mat-expansion-panel-header>
-
       <mat-panel-title class="panel-title">
-
-        <span> Business Details </span>
-
-         <mat-icon *ngIf="businessCompleted" class="success-icon">check_circle</mat-icon>
+        <span>Document Upload</span>
+        <mat-icon *ngIf="documentCompleted" class="success-icon">check_circle</mat-icon>
       </mat-panel-title>
-
     </mat-expansion-panel-header>
 
-    <form [formGroup]="businessForm">
+    <!-- Loading checklist -->
+    <div *ngIf="checklistLoading" class="checklist-loading">
+      <mat-spinner diameter="32"></mat-spinner>
+      <span>Loading document checklist…</span>
+    </div>
 
-      <div class="section-title">
-        Company Information
-      </div>
+    <!-- Checklist error -->
+    <div *ngIf="checklistError" class="error-msg">{{ checklistError }}</div>
 
-      <div class="form-grid">
+    <!-- Checklist table -->
+    <div *ngIf="!checklistLoading && !checklistError && checklistItems.length > 0">
 
-        <mat-form-field appearance="outline">
+      <div class="doc-upload-table">
 
-          <mat-label>
-            Company Name
-          </mat-label>
+        <div class="doc-header">
+          <div class="doc-name">Document</div>
+          <div class="doc-badges">Required</div>
+          <div class="doc-file">File</div>
+          <div class="doc-action">Action</div>
+          <div class="doc-status">Status</div>
+        </div>
 
-          <input
-            matInput
-            formControlName="companyName">
+        <div
+          class="doc-row"
+          *ngFor="let item of checklistItems"
+          [class.uploaded-row]="item.uploaded">
 
-        </mat-form-field>
+          <!-- Document name -->
+          <div class="doc-name">
+            <span>{{ item.document }}</span>
+            <div class="badge-row">
+              <span *ngIf="item.mandatoryForNxtStg" class="badge badge-required">Required</span>
+              <span *ngIf="item.mandatoryForApproval" class="badge badge-approval">For Approval</span>
+            </div>
+          </div>
 
-        <mat-form-field appearance="outline">
+          <!-- Required badge -->
+          <div class="doc-badges">
+            <mat-icon *ngIf="item.docRequired" class="required-icon" title="Mandatory">
+              star
+            </mat-icon>
+          </div>
 
-          <mat-label>
-            Company Type
-          </mat-label>
+          <!-- File input -->
+          <div class="doc-file">
+            <input
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png"
+              [id]="'file-' + item.id"
+              (change)="onFileSelected($event, item)"
+              [disabled]="item.uploading || item.uploaded">
+            <label
+              [for]="'file-' + item.id"
+              class="file-label"
+              [class.disabled]="item.uploading || item.uploaded">
+              <mat-icon>attach_file</mat-icon>
+              {{ item.selectedFile ? item.selectedFile.name : 'Choose file' }}
+            </label>
+          </div>
 
-          <mat-select formControlName="companyType">
+          <!-- Upload button -->
+          <div class="doc-action">
+            <button
+              mat-stroked-button
+              color="primary"
+              (click)="uploadDocument(item)"
+              [disabled]="!item.selectedFile || item.uploading || item.uploaded">
+              <mat-spinner *ngIf="item.uploading" diameter="18"></mat-spinner>
+              <mat-icon *ngIf="!item.uploading">cloud_upload</mat-icon>
+              {{ item.uploading ? 'Uploading…' : 'Upload' }}
+            </button>
 
-            <mat-option
-              *ngFor="let item of companyTypeList"
-              [value]="item.id">
+            <!-- Remove button (only for optional docs added by user) -->
+            <button
+              *ngIf="!item.docRequired"
+              mat-icon-button
+              color="warn"
+              (click)="removeDocument(item)"
+              title="Remove">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
 
-              {{item.values}}
+          <!-- Status column -->
+          <div class="doc-status">
 
-            </mat-option>
+            <ng-container *ngIf="item.uploaded && !item.ocrRunning">
+              <mat-icon class="success-icon" *ngIf="!isIncorporationCertificate(item.document)">
+                check_circle
+              </mat-icon>
+              <ng-container *ngIf="isIncorporationCertificate(item.document)">
+                <div *ngIf="item.ocrDone" class="ocr-done">
+                  <mat-icon class="success-icon">check_circle</mat-icon>
+                  <span>OCR complete</span>
+                </div>
+                <mat-icon class="success-icon" *ngIf="!item.ocrDone">check_circle</mat-icon>
+              </ng-container>
+            </ng-container>
 
-          </mat-select>
+            <!-- OCR running -->
+            <div *ngIf="item.ocrRunning" class="ocr-status">
+              <mat-spinner diameter="18"></mat-spinner>
+              <span>Extracting data…</span>
+            </div>
+              <button mat-icon-button *ngIf="item.uploaded" (click)="viewDocument(item)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            <!-- Error -->
+            <span *ngIf="item.error" class="error-msg small">{{ item.error }}</span>
 
-        </mat-form-field>
+          </div>
 
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-            Nature Of Business
-          </mat-label>
-
-          <mat-select formControlName="natureOfBusiness">
-
-            <mat-option
-              *ngFor="let item of natureOfBusinessList"
-              [value]="item.id">
-
-              {{item.values}}
-
-            </mat-option>
-
-          </mat-select>
-
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-            Industry Type
-          </mat-label>
-
-          <mat-select formControlName="industryType">
-
-            <mat-option
-              *ngFor="let item of industryTypeList"
-              [value]="item.id">
-
-              {{item.values}}
-
-            </mat-option>
-
-          </mat-select>
-
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-            Segment
-          </mat-label>
-
-          <mat-select formControlName="segment">
-
-            <mat-option
-              *ngFor="let item of segmentList"
-              [value]="item.id">
-
-              {{item.values}}
-
-            </mat-option>
-
-          </mat-select>
-
-        </mat-form-field>
-
-      </div>
-
-      <div class="section-title">
-        Applicant Information
-      </div>
-
-      <div class="form-grid">
-
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-            Applicant Name
-          </mat-label>
-
-          <input
-            matInput
-            formControlName="applicantName">
-
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-            Designation
-          </mat-label>
-
-          <mat-select formControlName="designation">
-
-            <mat-option
-              *ngFor="let item of designationList"
-              [value]="item.id">
-
-              {{item.values}}
-
-            </mat-option>
-
-          </mat-select>
-
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-            Mobile Number
-          </mat-label>
-
-          <input
-            matInput
-            formControlName="mobileNumber">
-
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-            Email
-          </mat-label>
-
-          <input
-            matInput
-            formControlName="email">
-
-        </mat-form-field>
+        </div>
+        <!-- end *ngFor -->
 
       </div>
+      <!-- end doc-upload-table -->
 
-      <div class="section-title">
-        Address Information
+      <!-- ── Optional Documents ─────────────────────────────────────────── -->
+      <div *ngIf="optionalItems.length > 0" class="optional-section">
+        <p class="section-title">Optional Documents</p>
+        <p class="optional-hint">Click "Add" to include any of these documents in your application.</p>
+
+        <div class="optional-chips">
+          <div
+            class="optional-chip"
+            *ngFor="let item of optionalItems">
+            {{ item.document }}
+            <button mat-icon-button (click)="addOptionalDocument(item)" title="Add this document">
+              <mat-icon>add_circle_outline</mat-icon>
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div class="form-grid">
-
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-            Business Address
-          </mat-label>
-
-          <input
-            matInput
-            formControlName="businessAddress">
-
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-            City
-          </mat-label>
-
-          <input
-            matInput
-            formControlName="city">
-
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-            Country
-          </mat-label>
-
-          <mat-select formControlName="country">
-
-            <mat-option
-              *ngFor="let item of countryList"
-              [value]="item.countryId">
-
-              {{item.countryName}}
-
-            </mat-option>
-
-          </mat-select>
-
-        </mat-form-field>
-
-      </div>
-
+      <!-- ── Proceed button ─────────────────────────────────────────────── -->
       <div class="button-section">
-
-        <button
-          mat-stroked-button
-          color="primary">
-          Back
-        </button>
-
+        <button mat-stroked-button color="primary">Back</button>
         <button
           mat-raised-button
           color="primary"
-          (click)="goToSummary()">
+          [disabled]="!allRequiredUploaded"
+          (click)="proceedFromDocuments()">
           Next
         </button>
-
       </div>
 
-    </form>
+    </div>
+    <!-- end checklist block -->
+
+    <!-- Edge case: checklist loaded but truly empty -->
+    <div *ngIf="!checklistLoading && !checklistError && checklistItems.length === 0 && optionalItems.length === 0 && originationId">
+      <p>No documents required for this stage.</p>
+      <div class="button-section">
+        <button mat-raised-button color="primary" (click)="proceedFromDocuments()">Next</button>
+      </div>
+    </div>
 
   </mat-expansion-panel>
 
+
+
+
   <mat-expansion-panel
-    [disabled]="!businessCompleted"
-    [expanded]="businessCompleted"
-    [hideToggle]="!businessCompleted">
+    [disabled]="!documentCompleted"
+    [expanded]="documentCompleted && !businessCompleted"
+    [hideToggle]="false">
 
     <mat-expansion-panel-header>
+      <mat-panel-title class="panel-title">
+        <span>Business Details</span>
+        <mat-icon *ngIf="businessCompleted" class="success-icon">check_circle</mat-icon>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-<mat-panel-title class="panel-title">
+    <form [formGroup]="businessForm">
+      <div class="section-title">Company Information</div>
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Company Name</mat-label>
+          <input matInput formControlName="companyName">
+        </mat-form-field>
 
-  <span>
-    Summary
-  </span>
+        <mat-form-field appearance="outline">
+          <mat-label>Company Type</mat-label>
+          <mat-select formControlName="companyType">
+            <mat-option *ngFor="let item of companyTypeList" [value]="item.id">{{item.values}}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-  <mat-icon
-    *ngIf="businessCompleted"
-    class="success-icon">
+        <mat-form-field appearance="outline">
+          <mat-label>Nature Of Business</mat-label>
+          <mat-select formControlName="natureOfBusiness">
+            <mat-option *ngFor="let item of natureOfBusinessList" [value]="item.id">{{item.values}}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-    check_circle
+        <mat-form-field appearance="outline">
+          <mat-label>Industry Type</mat-label>
+          <mat-select formControlName="industryType">
+            <mat-option *ngFor="let item of industryTypeList" [value]="item.id">{{item.values}}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-  </mat-icon>
+        <mat-form-field appearance="outline">
+          <mat-label>Segment</mat-label>
+          <mat-select formControlName="segment">
+            <mat-option *ngFor="let item of segmentList" [value]="item.id">{{item.values}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-</mat-panel-title>
+      <div class="section-title">Applicant Information</div>
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Applicant Name</mat-label>
+          <input matInput formControlName="applicantName">
+        </mat-form-field>
 
+        <mat-form-field appearance="outline">
+          <mat-label>Designation</mat-label>
+          <mat-select formControlName="designation">
+            <mat-option *ngFor="let item of designationList" [value]="item.id">{{item.values}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Mobile Number</mat-label>
+          <input matInput formControlName="mobileNumber">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+      </div>
+
+      <div class="section-title">Address Information</div>
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Business Address</mat-label>
+          <input matInput formControlName="businessAddress">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Country</mat-label>
+          <mat-select formControlName="country">
+            <mat-option *ngFor="let item of countryList" [value]="item.countryId">{{item.countryName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="button-section">
+        <button mat-stroked-button color="primary">Back</button>
+        <button mat-raised-button color="primary" (click)="goToSummary()">Next</button>
+      </div>
+    </form>
+  </mat-expansion-panel>
+
+
+
+
+  <mat-expansion-panel
+    [disabled]="!businessCompleted"
+    [hideToggle]="false">
+
+    <mat-expansion-panel-header>
+      <mat-panel-title class="panel-title">
+        <span>Summary</span>
+        <mat-icon *ngIf="businessCompleted" class="success-icon">check_circle</mat-icon>
+      </mat-panel-title>
     </mat-expansion-panel-header>
 
     <div class="summary-section">
 
-      <div class="section-title">
-        Loan Information
-      </div>
-
+      <div class="section-title">Loan Information</div>
       <div class="summary-grid">
-
-        <div>
-          <label>Loan Amount</label>
-          <p>{{emiData?.principal}}</p>
-        </div>
-
-        <div>
-          <label>Interest Payable</label>
-          <p>{{emiData?.totalInterest}}</p>
-        </div>
-
-        <div>
-          <label>Tenure</label>
-          <p>{{emiData?.numberOfMonths}}</p>
-        </div>
-
-        <div>
-          <label>EMI Amount</label>
-          <p>{{emiData?.monthlyPayment}}</p>
-        </div>
-
-        <div>
-          <label>Total Payable Amount</label>
-          <p>{{emiData?.totalRepaymentAmount}}</p>
-        </div>
-
+        <div><label>Loan Amount</label><p>{{emiData?.principal}}</p></div>
+        <div><label>Interest Payable</label><p>{{emiData?.totalInterest}}</p></div>
+        <div><label>Tenure</label><p>{{emiData?.numberOfMonths}}</p></div>
+        <div><label>EMI Amount</label><p>{{emiData?.monthlyPayment}}</p></div>
+        <div><label>Total Payable Amount</label><p>{{emiData?.totalRepaymentAmount}}</p></div>
       </div>
 
-      <div class="section-title">
-        Loan Details
-      </div>
-
+      <div class="section-title">Loan Details</div>
       <div class="summary-grid">
-
-        <div>
-          <label>Purpose Of Loan</label>
-          <p>{{getPurposeOfLoan()}}</p>    
-        </div>
-
-        <div>
-          <label>Repayment Frequency</label>
-          <p>{{getRepaymentFrequency()}}</p>
-        </div>
-
-        <div>
-          <label>Collateral</label>
-          <p>{{loanForm.value.collateral}}</p>
-        </div>
-
-        <div>
-          <label>Credit Facility</label>
-          <p>{{loanForm.value.creditFacility}}</p>
-        </div>
-
+        <div><label>Purpose Of Loan</label><p>{{getPurposeOfLoan()}}</p></div>
+        <div><label>Repayment Frequency</label><p>{{getRepaymentFrequency()}}</p></div>
+        <div><label>Collateral</label><p>{{loanForm.value.collateral}}</p></div>
+        <div><label>Credit Facility</label><p>{{loanForm.value.creditFacility}}</p></div>
       </div>
 
-      <div class="section-title">
-        Business Details
-      </div>
-
+      <div class="section-title">Business Details</div>
       <div class="summary-grid">
+        <div><label>Company Name</label><p>{{businessForm.value.companyName}}</p></div>
+        <div><label>Company Type</label><p>{{getCompanyType()}}</p></div>
+        <div><label>Nature Of Business</label><p>{{getNatureOfBusiness()}}</p></div>
+        <div><label>Industry Type</label><p>{{getIndustryType()}}</p></div>
+        <div><label>Segment</label><p>{{getSegment()}}</p></div>
+        <div><label>Applicant Name</label><p>{{businessForm.value.applicantName}}</p></div>
+        <div><label>Designation</label><p>{{businessForm.value.designation}}</p></div>
+        <div><label>Mobile Number</label><p>{{businessForm.value.mobileNumber}}</p></div>
+        <div><label>Email</label><p>{{businessForm.value.email}}</p></div>
+        <div><label>Business Address</label><p>{{businessForm.value.businessAddress}}</p></div>
+        <div><label>City</label><p>{{businessForm.value.city}}</p></div>
+        <div><label>Country</label><p>{{getCountry()}}</p></div>
+      </div>
 
-        <div>
-          <label>Company Name</label>
-          <p>{{businessForm.value.companyName}}</p>
+      <div class="section-title">Documents Uploaded</div>
+      <div class="summary-grid">
+        <div
+          *ngFor="let item of checklistItems"
+          class="doc-summary-item">
+          <label>{{ item.document }}</label>
+          <p>
+            <mat-icon class="success-icon small">check_circle</mat-icon>
+            {{ item.selectedFile?.name || 'Uploaded' }}
+            <span *ngIf="item.ocrDone" class="ocr-badge">OCR ✓</span>
+          </p>
         </div>
-
-        <div>
-          <label>Company Type</label>
-          <p>{{getCompanyType()}}</p>
-        </div>
-
-        <div>
-          <label>Nature Of Business</label>
-          <p>{{getNatureOfBusiness()}}</p>
-        </div>
-
-        <div>
-          <label>Industry Type</label>
-          <p>{{getIndustryType()}}</p>
-        </div>
-
-        <div>
-          <label>Segment</label>
-          <p>{{getSegment()}}</p>
-        </div>
-
-        <div>
-          <label>Applicant Name</label>
-          <p>{{businessForm.value.applicantName}}</p>
-        </div>
-
-        <div>
-          <label>Designation</label>
-          <p>{{businessForm.value.designation}}</p>
-        </div>
-
-        <div>
-          <label>Mobile Number</label>
-          <p>{{businessForm.value.mobileNumber}}</p>
-        </div>
-
-        <div>
-          <label>Email</label>
-          <p>{{businessForm.value.email}}</p>
-        </div>
-
-        <div>
-          <label>Business Address</label>
-          <p>{{businessForm.value.businessAddress}}</p>
-        </div>
-
-        <div>
-          <label>City</label>
-          <p>{{businessForm.value.city}}</p>
-        </div>
-
-        <div>
-          <label>Country</label>
-          <p>{{getCountry()}}</p>
-        </div>
-
       </div>
 
     </div>
-
   </mat-expansion-panel>
 
 </mat-accordion>

@@ -17,6 +17,7 @@ import { MatMenuModule} from '@angular/material/menu';
 import { MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatSliderModule} from '@angular/material/slider';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 
@@ -58,7 +59,8 @@ import { LoanDetailsComponent } from './loan-details/loan-details.component';
     MatSlideToggleModule,
     MatSliderModule,
     MatRadioModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {

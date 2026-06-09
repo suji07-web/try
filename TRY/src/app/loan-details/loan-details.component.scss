@@ -152,14 +152,19 @@ button[mat-stroked-button] {
   font-weight: 600;
   justify-content: center;
   text-align: center;
-  background: #f8fcffb8;
-  padding: 20px;
+    background: linear-gradient(
+    135deg,
+    #0d47a1,
+    #1976d2
+  );
+  color: white;
+  padding: 30px;
   border-radius: 12px;  
 }
 
 .page-header h2 {
   margin: 0;
-  color: #0d47a1;
+  color: white;
   font-size: 32px;
   font-weight: 600;
 }
@@ -167,4 +172,323 @@ button[mat-stroked-button] {
 .page-header p {
   margin-top: 5px;
   color: #6b7280;
+}
+// ── Document Upload table ────────────────────────────────────────────────────
+
+.doc-upload-table {
+  width: 100%;
+  margin-bottom: 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.doc-header,
+.doc-row {
+  display: grid;
+  grid-template-columns: 3fr 80px 2.5fr 160px 150px;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+}
+
+.doc-header {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  font-size: 13px;
+  color: #555;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.doc-row {
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: #fafafa;
+  }
+}
+
+.doc-name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+
+  .badge-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+}
+
+.badge {
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.badge-required {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.badge-approval {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.doc-badges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .required-icon {
+    color: #f57c00;
+    font-size: 20px;
+  }
+}
+
+.incorporation-badge {
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: help;
+}
+
+.doc-file {
+  input[type="file"] {
+    display: none;  
+  }
+
+  .file-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border: 1px dashed #90caf9;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #1976d2;
+    transition: background 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+
+    mat-icon {
+      font-size: 18px;
+    }
+
+    &:hover {
+      background-color: #e3f2fd;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Upload button cell
+.doc-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  button[mat-stroked-button] {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+
+    mat-spinner {
+      display: inline-block;
+    }
+  }
+}
+
+// Status cell
+.doc-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  .success-icon {
+    color: #43a047;
+
+    &.small {
+      font-size: 16px;
+    }
+  }
+
+  .ocr-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #1976d2;
+  }
+
+  .ocr-done {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #43a047;
+  }
+
+  .error-msg.small {
+    font-size: 12px;
+    color: #d32f2f;
+  }
+}
+
+// ── Optional documents ───────────────────────────────────────────────────────
+
+.optional-section {
+  margin-top: 24px;
+}
+
+.optional-hint {
+  color: #6b7280;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.optional-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.optional-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid #d9dee8;
+  border-radius: 24px;
+  background: #f8fafc;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.2s ease;
+}
+
+.optional-chip:hover {
+  background: #eef5ff;
+  border-color: #1976d2;
+}
+
+.optional-chip button {
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  line-height: 22px !important;
+}
+
+.optional-chip mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+  color: #1976d2;
+}
+
+// ── Checklist loading ────────────────────────────────────────────────────────
+
+.checklist-loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 0;
+  color: #757575;
+  font-size: 14px;
+}
+
+.error-msg {
+  color: #d32f2f;
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+// ── Summary doc list ─────────────────────────────────────────────────────────
+
+.doc-summary-item {
+  p {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+.ocr-badge {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+.loan-summary-card {
+  background: linear-gradient(135deg, #0d47a1, #1565c0);
+  color: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 25px rgba(13, 71, 161, 0.25);
+}
+
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.summary-values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.metric label {
+  opacity: 0.8;
+  font-size: 13px;
+}
+
+.metric h2 {
+  margin-top: 6px;
+  font-size: 28px;
+  font-weight: 700;
+}
+.loan-info-grid div {
+  background: white;
+  border-radius: 14px;
+  border: none;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+  transition: .3s;
+}
+
+.loan-info-grid div:hover {
+  transform: translateY(-4px);
+}
+.loan-info-grid div {
+  border-left: 5px solid #1565c0;
 }
