@@ -15,8 +15,9 @@ import { Router } from '@angular/router';
 })
 export class EmiCalculatorComponent {
 
+  principalPercent = 0;
+  interestPercent = 0;
   emiResult:any;
-
   emiForm = new FormGroup({
 
     principleAmount: new FormControl(
@@ -40,6 +41,7 @@ export class EmiCalculatorComponent {
     private loanService: LoanService,
     private router: Router
   ) {}
+  
   applyNow() {
 
   this.router.navigate(['/loan-details']);
@@ -47,7 +49,6 @@ export class EmiCalculatorComponent {
 }
 
   calculateEmi() {
-
     const payload = {
       principleAmount:this.emiForm.value.principleAmount,
       interestRate: 10.55,
@@ -60,11 +61,15 @@ export class EmiCalculatorComponent {
       next:(response)=>{
         console.log(response);
         this.emiResult =response.data;
+        const total = response.data.totalRepaymentAmount;
+        this.principalPercent = Math.round((response.data.principal / total) * 100);
+        this.interestPercent = 100 - this.principalPercent;  
          const emiData = { ...response.data,numberOfMonths:this.emiForm.value.numberOfMonths,interestRate: 10.55};
           sessionStorage.setItem(
     'emiData',
     JSON.stringify(emiData)
   );
+  
 },
       error:(error)=>{
         console.log(error);

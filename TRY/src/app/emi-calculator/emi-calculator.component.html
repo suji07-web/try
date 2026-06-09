@@ -47,7 +47,13 @@
   max="500000"
   [value]="emiForm.get('principleAmount')?.value || 0"
   (input)="emiForm.get('principleAmount')?.setValue($any($event.target).value)">
-<label> Tenure (Months) </label>
+<label>
+  Tenure (Months)
+</label>
+
+<div class="value-display">
+  {{ emiForm.get('numberOfMonths')?.value }} Months
+</div>
 <input type="number" formControlName="numberOfMonths">
 <input type="range" min="1" max="120"
     [value]="emiForm.get('numberOfMonths')?.value || 0"
@@ -68,8 +74,28 @@
 <h4>Your Monthly EMI Payment</h4>
 
  <div class="emi-amount"> ₹ {{ emiResult.monthlyPayment }} </div>
+<div class="chart-wrapper" *ngIf="emiResult">
+  <svg viewBox="0 0 36 36" class="donut-chart">
+    <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e0e0e0" stroke-width="3.8"/>
+ <circle cx="18" cy="18" r="15.9" fill="none"
+  stroke="#0b4f97" stroke-width="3.8"
+  [attr.stroke-dasharray]="principalPercent + ' ' + (100 - principalPercent)"
+  stroke-dashoffset="25"
+/>
+  </svg>
+  <div class="chart-legend">
+    <span class="dot blue"></span> Principal: {{ principalPercent }}%
+    <span class="dot green"></span> Interest: {{ interestPercent }}%
+  </div>
+</div>
 <div class="row">
-<span>Principal Amount  </span>
+<label>
+  Amount
+</label>
+
+<div class="value-display">
+  ₹ {{ emiForm.get('principleAmount')?.value }}
+</div>
 <strong>
         ₹ {{ emiResult.principal }}
 </strong>

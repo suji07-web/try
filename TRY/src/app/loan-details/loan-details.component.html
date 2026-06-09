@@ -1,13 +1,26 @@
+<div class="page-header">
+  <h2>Loan Origination</h2>
+  <p>Complete the loan application process</p>
+</div>
 <mat-accordion multi="true">
 
   <mat-expansion-panel [expanded]="true"  [hideToggle]="false">
-
-
-
       <mat-expansion-panel-header >
-        <mat-panel-title>
-          Loan Details
-        </mat-panel-title>
+<mat-panel-title class="panel-title">
+
+  <span>
+    Loan Details
+  </span>
+
+  <mat-icon
+    *ngIf="loanCompleted"
+    class="success-icon">
+
+    check_circle
+
+  </mat-icon>
+
+</mat-panel-title>
       </mat-expansion-panel-header>
     <form [formGroup]="loanForm">
       <div class="section-title">
@@ -15,7 +28,6 @@
       </div>
 
       <div class="loan-info-grid">
-
         <div>
           <label>Loan Amount Requested</label>
           <h3>{{emiData?.principal}}</h3>
@@ -28,7 +40,7 @@
 
         <div>
           <label>Tenure</label>
-          <h3>{{emiData?.tenure}} Year</h3>
+          <h3>{{emiData?.numberOfMonths}} Months</h3>
         </div>
 
         <div>
@@ -164,8 +176,11 @@
 
     <mat-expansion-panel-header>
 
-      <mat-panel-title>
-        Business Details
+      <mat-panel-title class="panel-title">
+
+        <span> Business Details </span>
+
+         <mat-icon *ngIf="businessCompleted" class="success-icon">check_circle</mat-icon>
       </mat-panel-title>
 
     </mat-expansion-panel-header>
@@ -416,9 +431,21 @@
 
     <mat-expansion-panel-header>
 
-      <mat-panel-title>
-        Summary
-      </mat-panel-title>
+<mat-panel-title class="panel-title">
+
+  <span>
+    Summary
+  </span>
+
+  <mat-icon
+    *ngIf="businessCompleted"
+    class="success-icon">
+
+    check_circle
+
+  </mat-icon>
+
+</mat-panel-title>
 
     </mat-expansion-panel-header>
 
