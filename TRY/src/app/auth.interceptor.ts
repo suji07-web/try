@@ -31,9 +31,12 @@ implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
 
-    const token =
-      sessionStorage.getItem('token');
-
+    const token =sessionStorage.getItem('token');
+const cloned = request.clone({
+  setHeaders: {
+    Authorization: `Bearer ${token}`
+  }
+});
     let modifiedRequest = request;
 
  if (token &&!request.url.includes('/auth/signin')) 

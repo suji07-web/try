@@ -1,142 +1,178 @@
 <div class="page">
 
+  <!-- Topbar -->
   <div class="topbar">
-
-    <span>
-      Bank
-    </span>
-
-    <button>
-      Tracking
+    <div class="topbar-brand">
+      <div class="brand-icon">B</div>
+      <span class="brand-name">Bank</span>
+    </div>
+    <button class="topbar-btn">
+      <span class="btn-icon">📊</span> Tracking
     </button>
-
   </div>
 
   <div class="content">
 
-    <div class="tag">
-      Loan EMI Calculator
+    <div class="page-header">
+      <span class="tag">Loan EMI Calculator</span>
+      <h1>
+        Estimate your monthly repayments.<br>
+        <span class="h1-sub">Final terms are confirmed at approval.</span>
+      </h1>
     </div>
-
-    <h1>
-      Estimated amount displayed.
-      Final loan terms will be
-      customised upon approval.
-    </h1>
 
     <div class="calculator-card">
 
-<div class="left-section">
+      <!-- LEFT: Form -->
+      <div class="left-section">
+        <h2>Business Loan</h2>
+        <p class="section-sub">Adjust the sliders to see your EMI instantly.</p>
 
-        <h2>
-          Business Loan EMI Calculator
-        </h2>
+        <form [formGroup]="emiForm">
 
-        <form
-          [formGroup]="emiForm"
-        >
- <label> Amount
-  </label>
-<input
-    type="number"
-    formControlName="principleAmount"  >
+          <!-- Loan Amount -->
+          <div class="field-group">
+            <div class="field-header">
+              <label>Loan Amount</label>
+              <div class="value-pill">₹ {{ emiForm.get('principleAmount')?.value | number }}</div>
+            </div>
+            <input
+              type="range"
+              min="1000"
+              max="500000"
+              step="1000"
+              [value]="emiForm.get('principleAmount')?.value || 0"
+              (input)="emiForm.get('principleAmount')?.setValue(+$any($event.target).value)"
+              class="styled-range"
+            />
+            <div class="range-labels">
+              <span>₹1,000</span>
+              <span>₹5,00,000</span>
+            </div>
+            <input
+              type="number"
+              formControlName="principleAmount"
+              class="number-input"
+              placeholder="Enter amount"
+            />
+          </div>
 
-<input
-  type="range"
-  min="1000"
-  max="500000"
-  [value]="emiForm.get('principleAmount')?.value || 0"
-  (input)="emiForm.get('principleAmount')?.setValue($any($event.target).value)">
-<label>
-  Tenure (Months)
-</label>
+          <!-- Tenure -->
+          <div class="field-group">
+            <div class="field-header">
+              <label>Tenure</label>
+              <div class="value-pill">{{ emiForm.get('numberOfMonths')?.value }} Months</div>
+            </div>
+            <input
+              type="range"
+              min="1"
+              max="120"
+              step="1"
+              [value]="emiForm.get('numberOfMonths')?.value || 0"
+              (input)="emiForm.get('numberOfMonths')?.setValue(+$any($event.target).value)"
+              class="styled-range"
+            />
+            <div class="range-labels">
+              <span>1 Month</span>
+              <span>120 Months</span>
+            </div>
+            <input
+              type="number"
+              formControlName="numberOfMonths"
+              class="number-input"
+              placeholder="Enter months"
+            />
+          </div>
 
-<div class="value-display">
-  {{ emiForm.get('numberOfMonths')?.value }} Months
-</div>
-<input type="number" formControlName="numberOfMonths">
-<input type="range" min="1" max="120"
-    [value]="emiForm.get('numberOfMonths')?.value || 0"
-    (input)="emiForm.get('numberOfMonths')?.setValue($any($event.target).value)">
+          <!-- Interest Rate (display only) -->
+          <div class="interest-badge">
+            <span class="interest-label">Fixed Interest Rate</span>
+            <span class="interest-value">10.55% p.a.</span>
+          </div>
 
-<p class="interest">Interest Rate :<strong>10.55%</strong></p>
+          <!-- First Repayment Date -->
+          <div class="field-group">
+            <label>First Repayment Date</label>
+            <input type="date" formControlName="firstRepaymentDate" class="number-input" />
+          </div>
 
-<label>First Repayment Date</label>
-<input type="date" formControlName="firstRepaymentDate">
-<button  type="button"   (click)="calculateEmi()"  >
-   Calculate EMI
-</button>
-</form>
-</div>
+          <button type="button" class="calculate-btn" (click)="calculateEmi()">
+            Calculate EMI →
+          </button>
 
-<div class="right-section"    *ngIf="emiResult">
+        </form>
+      </div>
 
-<h4>Your Monthly EMI Payment</h4>
+      <!-- RIGHT: Results -->
+      <div class="right-section" *ngIf="emiResult">
 
- <div class="emi-amount"> ₹ {{ emiResult.monthlyPayment }} </div>
-<div class="chart-wrapper" *ngIf="emiResult">
-  <svg viewBox="0 0 36 36" class="donut-chart">
-    <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e0e0e0" stroke-width="3.8"/>
- <circle cx="18" cy="18" r="15.9" fill="none"
-  stroke="#0b4f97" stroke-width="3.8"
-  [attr.stroke-dasharray]="principalPercent + ' ' + (100 - principalPercent)"
-  stroke-dashoffset="25"
-/>
-  </svg>
-  <div class="chart-legend">
-    <span class="dot blue"></span> Principal: {{ principalPercent }}%
-    <span class="dot green"></span> Interest: {{ interestPercent }}%
-  </div>
-</div>
-<div class="row">
-<label>
-  Amount
-</label>
-
-<div class="value-display">
-  ₹ {{ emiForm.get('principleAmount')?.value }}
-</div>
-<strong>
-        ₹ {{ emiResult.principal }}
-</strong>
-
- </div>
-
-        <div class="row">
-
-          <span>
-            Interest Amount
-          </span>
-
-          <strong>
-
-            ₹ {{ emiResult.totalInterest }}
-
-          </strong>
-
+        <div class="result-header">
+          <span class="result-label">Monthly EMI</span>
+          <div class="emi-amount">₹ {{ emiResult.monthlyPayment | number:'1.0-0' }}</div>
         </div>
 
-        <div class="row">
+        <!-- Donut Chart -->
+        <div class="chart-wrapper">
+          <div class="donut-container">
+            <svg viewBox="0 0 36 36" class="donut-chart">
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e8edf5" stroke-width="3.8"/>
+              <circle
+                cx="18" cy="18" r="15.9" fill="none"
+                stroke="#0b4f97" stroke-width="3.8"
+                [attr.stroke-dasharray]="principalPercent + ' ' + (100 - principalPercent)"
+                stroke-dashoffset="25"
+                class="donut-arc"
+              />
+            </svg>
+            <div class="donut-center-label">
+              <span>Principal</span>
+              <strong>{{ principalPercent }}%</strong>
+            </div>
+          </div>
+          <div class="chart-legend">
+            <div class="legend-item">
+              <span class="dot blue"></span>
+              <span>Principal <strong>{{ principalPercent }}%</strong></span>
+            </div>
+            <div class="legend-item">
+              <span class="dot teal"></span>
+              <span>Interest <strong>{{ interestPercent }}%</strong></span>
+            </div>
+          </div>
+        </div>
 
-          <span>
-            Total Amount
-          </span>
-
-          <strong>
-
-            ₹ {{ emiResult.totalRepaymentAmount }}
-
-          </strong>
-
+        <!-- Summary Rows -->
+        <div class="summary-rows">
+          <div class="summary-row">
+            <span class="row-label">Principal Amount</span>
+            <span class="row-value">₹ {{ emiResult.principal | number:'1.0-0' }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="row-label">Interest Amount</span>
+            <span class="row-value accent">₹ {{ emiResult.totalInterest | number:'1.0-0' }}</span>
+          </div>
+          <div class="summary-row total-row">
+            <span class="row-label">Total Repayment</span>
+            <span class="row-value">₹ {{ emiResult.totalRepaymentAmount | number:'1.0-0' }}</span>
+          </div>
         </div>
 
       </div>
 
-    </div>
+      <!-- Right placeholder when no result -->
+      <div class="right-placeholder" *ngIf="!emiResult">
+        <div class="placeholder-icon">🧮</div>
+        <p>Fill in your loan details and click <strong>Calculate EMI</strong> to see your repayment breakdown.</p>
+      </div>
 
+    </div><!-- /.calculator-card -->
+
+  </div><!-- /.content -->
+
+  <div class="page-footer">
+    <button mat-raised-button color="primary" class="apply-btn" (click)="applyNow()">
+      Apply for this Loan
+    </button>
   </div>
-<button mat-raised-button color="primary" class="apply-btn" (click)="applyNow()">
-Apply Now
-</button>
 
 </div>

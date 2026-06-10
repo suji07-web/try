@@ -25,7 +25,8 @@ export interface ChecklistItem {
   error?: string;                
   ocrRunning?: boolean;          
   ocrDone?: boolean;       
-  fetchedDocumentUrl?: string | null;       
+  fetchedDocumentUrl?: string | null; 
+  uuid?: string | null;       
 }
 @Component({
 selector: 'app-loan-details',
@@ -188,11 +189,10 @@ goToBusinessDetails(): void {
 
         console.log('Loan Details Saved', response);
 
-        // response.data.originationModel.originationId confirmed from API response
         this.originationId = response?.data?.originationModel?.originationId ?? null;
 
         this.loanCompleted = true;
-        this.loadChecklist();   // load checklist as soon as originationId is available
+        this.loadChecklist();   
       },
 
       error: (error: any) => {
@@ -257,8 +257,9 @@ loadChecklist(): void {
         }));
  
 
-        this.checklistItems = allItems.filter(i => i.docRequired);
-        this.optionalItems = allItems.filter(i => !i.docRequired);
+     this.checklistItems = allItems.filter(i => i.docRequired);
+     this.optionalItems = allItems.filter(i => !i.docRequired && !this.checklistItems.some(req => req.document === i.document)
+);
       },
       error: () => {
         this.checklistLoading = false;
@@ -292,7 +293,7 @@ loadChecklist(): void {
  
     const metadata = {
       documentNameForChecklist: item.document,
-      documentName: 'National Id',    // fixed value as seen in HAR
+      documentName: 'National Id',    
       documentType: 'National Id',
       documentNumber: '',
       documentSide: 1,
@@ -303,7 +304,6 @@ loadChecklist(): void {
  
     this.loanService.uploadDocument(item.selectedFile, metadata).subscribe({
       next: (uploadResponse: any) => {
-         item.fetchedDocumentUrl = uploadResponse?.data?.documentUrl;
         const documentId: number = uploadResponse?.id || uploadResponse?.documentId;
  
         item.documentId = documentId;
@@ -313,7 +313,8 @@ loadChecklist(): void {
           next: () => {
             item.uploading = false;
             item.uploaded = true;
- 
+            item.uuid = uploadResponse?.uuid ?? null;  
+              console.log('Upload Response:', uploadResponse);
             // Step 3: If this is the Incorporation Certificate → run OCR
             if (this.isIncorporationCertificate(item.document)) {
               this.runOcr(item);
@@ -383,7 +384,6 @@ loadChecklist(): void {
     this.documentCompleted = true;
   }
   
- 
 
 
 getPurposeOfLoan(): string {
@@ -465,8 +465,22 @@ getCountry(): string {
   return item?.countryName || '';
 
 }
-viewDocument(item: ChecklistItem) {
-const url =`${environment.apiBaseUrl}${environment.document.fetchDocument}` +`?originationId=${this.originationId}` +`&documnetName=${encodeURIComponent(item.document)}`;
-window.open(url, '_blank');
+
+viewDocument(item: ChecklistItem): void {
+  if (!item.uuid) return;
+
+  this.loanService.downloadDocument(item.uuid).subscribe({
+    next: (blob: Blob) => {
+      // force the correct mime type so browser knows how to open it
+      const mimeType = item.selectedFile?.type || 'application/pdf';
+      const properBlob = new Blob([blob], { type: mimeType });
+      const objectUrl = URL.createObjectURL(properBlob);
+      window.open(objectUrl, '_blank');
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 10000);
+    },
+    error: () => {
+      item.error = 'Could not open document. Please try again.';
+    }
+  });
 }
 }

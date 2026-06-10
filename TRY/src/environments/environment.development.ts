@@ -22,12 +22,15 @@ export const environment = {
   genericValue: '/generic-value' , 
   country: '/country' ,
   
+
+
   document: {
     checkList: '/process_stage/fetchCheckListForScreen',  
     upload: '/dms/upload',                               
     linkToOrigination: '/origination-doc',              
-    ocrSave: '/pyDocument/savePyDoc', 
-    fetchDocument: '/pyDocument/fetchDocument',                   
+    ocrSave: '/pyDocument/savePyDoc',
+    fetchDocument: '/pyDocument/fetchDocument',
+    download: '/dms/download'
   },
  
   stageId: 653,

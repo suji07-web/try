@@ -96,11 +96,12 @@ export class LoanService {
     );
   }
 
-   fetchDocument(originationId: number, documentName: string): Observable<any> {
-  const encodedName = encodeURIComponent(documentName);
-  return this.http.get<any>(
-    `${environment.apiBaseUrl}${environment.document.fetchDocument}` +
-    `?originationId=${originationId}&documnetName=${encodedName}`
-  );
+
+downloadDocument(uuid: string): Observable<Blob> {
+  return this.http.get(`${environment.apiBaseUrl}${environment.document.download}`, {
+    params: { uuid },
+    responseType: 'blob'
+  });
 }
+
 }

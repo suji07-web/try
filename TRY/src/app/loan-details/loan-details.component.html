@@ -5,7 +5,7 @@
 
 <div class="loan-summary-card">
   <div class="summary-header">
-    <span>Loan Overview</span>
+<h2>Loan Overview</h2>
     <mat-icon>account_balance</mat-icon>
   </div>
 
@@ -207,9 +207,10 @@
               <mat-spinner diameter="18"></mat-spinner>
               <span>Extracting data…</span>
             </div>
-              <button mat-icon-button *ngIf="item.uploaded" (click)="viewDocument(item)">
-                <mat-icon>visibility</mat-icon>
-              </button>
+            <button *ngIf="item.uploaded" mat-icon-button color="primary" (click)="viewDocument(item)" title="View document">
+              <mat-icon>visibility</mat-icon>
+            </button>
+
             <!-- Error -->
             <span *ngIf="item.error" class="error-msg small">{{ item.error }}</span>
 
@@ -224,7 +225,7 @@
       <!-- ── Optional Documents ─────────────────────────────────────────── -->
       <div *ngIf="optionalItems.length > 0" class="optional-section">
         <p class="section-title">Optional Documents</p>
-        <p class="optional-hint">Click "Add" to include any of these documents in your application.</p>
+        <p class="optional-hint">Click "+" to include any of these documents in your application.</p>
 
         <div class="optional-chips">
           <div
